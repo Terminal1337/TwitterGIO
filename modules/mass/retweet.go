@@ -8,7 +8,6 @@ import (
 	http "github.com/bogdanfinn/fhttp"
 	tls_client "github.com/bogdanfinn/tls-client"
 	"github.com/bogdanfinn/tls-client/profiles"
-	"github.com/google/uuid"
 )
 
 func DoRetweet(auth_token string, ct0 string, proxy string, tweet_id string) (string, error) {
@@ -22,7 +21,7 @@ func DoRetweet(auth_token string, ct0 string, proxy string, tweet_id string) (st
 	client, err := tls_client.NewHttpClient(tls_client.NewNoopLogger(), options...)
 	if err != nil {
 		log.Println(err)
-		return "NOTOK+++++-", err
+		return "NOTOK", err
 	}
 	body := fmt.Sprintf(`{
   "variables": {
@@ -42,19 +41,19 @@ func DoRetweet(auth_token string, ct0 string, proxy string, tweet_id string) (st
 		"Accept-Language": {"en-US,en;q=0.9"},
 		"Authorization":   {"Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"},
 		// "Connection":                {"keep-alive"},
-		"Content-Type":              {"application/json"},
-		"Cookie":                    {fmt.Sprintf("auth_token=%s;ct0=%s", auth_token, ct0)},
-		"Host":                      {"x.com"},
-		"Origin":                    {"https://x.com"},
-		"Referer":                   {"https://x.com/home"},
-		"Sec-Ch-Ua":                 {"\"Chromium\";v=\"124\", \"Not(A:Brand\";v=\"24\", \"Google Chrome\";v=\"124\""},
-		"Sec-Ch-Ua-Mobile":          {"?0"},
-		"Sec-Ch-Ua-Platform":        {"\"Windows\""},
-		"Sec-Fetch-Dest":            {"empty"},
-		"Sec-Fetch-Mode":            {"cors"},
-		"Sec-Fetch-Site":            {"same-origin"},
-		"User-Agent":                {"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"},
-		"X-Client-Uuid":             {uuid.New().String()},
+		"Content-Type":       {"application/json"},
+		"Cookie":             {fmt.Sprintf("auth_token=%s;ct0=%s", auth_token, ct0)},
+		"Host":               {"x.com"},
+		"Origin":             {"https://x.com"},
+		"Referer":            {"https://x.com/home"},
+		"Sec-Ch-Ua":          {"\"Chromium\";v=\"124\", \"Not(A:Brand\";v=\"24\", \"Google Chrome\";v=\"124\""},
+		"Sec-Ch-Ua-Mobile":   {"?0"},
+		"Sec-Ch-Ua-Platform": {"\"Windows\""},
+		"Sec-Fetch-Dest":     {"empty"},
+		"Sec-Fetch-Mode":     {"cors"},
+		"Sec-Fetch-Site":     {"same-origin"},
+		"User-Agent":         {"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"},
+		// "X-Client-Uuid":             {uuid.New().String()},
 		"X-Csrf-Token":              {ct0},
 		"X-Twitter-Active-User":     {"yes"},
 		"X-Twitter-Auth-Type":       {"OAuth2Session"},

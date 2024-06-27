@@ -155,14 +155,14 @@ func HandleRT(tokens []string, tweet_id string, threads int) {
 
 				return
 			}
-			if status == "ok" {
+			if status == "OK" {
 				c.Done()
 
 				logging.Log(logging.Info, color.BlackString("module=")+color.WhiteString("retweet ")+color.BlackString("token=")+color.WhiteString(auth_token)+color.BlackString(" status=")+color.WhiteString("SUCCESS"))
 
 				return
 			}
-			if status == "notok" {
+			if status == "NOTOK" {
 				c.Done()
 				helpers.AppendToFile("output/retweet/failed.txt", fmt.Sprintf("%s\n", t))
 				logging.Log(logging.Warning, color.BlackString("module=")+color.WhiteString("retweet ")+color.BlackString("token=")+color.WhiteString(auth_token)+color.BlackString(" status=")+color.WhiteString("ERROR"))

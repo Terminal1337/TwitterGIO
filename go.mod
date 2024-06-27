@@ -8,6 +8,7 @@ require (
 )
 
 require (
+	github.com/Terminal1337/GoCycle v0.0.0-20240118123234-3613a8861da9 // indirect
 	github.com/andybalholm/brotli v1.0.5 // indirect
 	github.com/bogdanfinn/fhttp v0.5.28 // indirect
 	github.com/bogdanfinn/tls-client v1.7.5 // indirect

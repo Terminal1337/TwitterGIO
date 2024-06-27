@@ -5,13 +5,16 @@ import (
 	"log"
 	"strings"
 
+	"github.com/Terminal1337/GoCycle"
 	http "github.com/bogdanfinn/fhttp"
 	tls_client "github.com/bogdanfinn/tls-client"
 	"github.com/bogdanfinn/tls-client/profiles"
 	"github.com/google/uuid"
 )
 
-var ()
+var (
+	messageCycle *GoCycle.Cycle
+)
 
 func DoReplyNew(auth_token string, ct0 string, proxy string, tweet_id string, message string) (string, error) {
 	jar := tls_client.NewCookieJar()
