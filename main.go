@@ -211,7 +211,9 @@ func printBanner() {
 	menuOptionColor.Println("[3] Mass Tweet")
 	menuOptionColor.Println("[4] Mass Like")
 	menuOptionColor.Println("[5] Mass Retweet")
-	menuOptionColor.Println("[6] AI Comments [GPT3.5]\n")
+	menuOptionColor.Println("[6] Mass Reply")
+	menuOptionColor.Println("[7] Mass Follow")
+	menuOptionColor.Println("[8] AI Comments [GPT3.5]\n")
 }
 
 func LoadTxts() {
@@ -257,7 +259,7 @@ func init() {
 		cmd.Stdout = os.Stdout
 		cmd.Run()
 	}
-	// Authenticator()
+	Authenticator()
 }
 func main() {
 restart:
@@ -328,7 +330,32 @@ restart:
 		fmt.Scanln(&tweet_id)
 		handlers.HandleRT(tokens, tweet_id, threadsint)
 		goto restart
+
 	case "6":
+		var tweet_id string
+		var threadsstr string
+		fmt.Print("Threads: ")
+		fmt.Scanln(&threadsstr)
+		threadsstr = strings.TrimSpace(threadsstr)
+		threadsint, _ := strconv.Atoi(threadsstr)
+		fmt.Print("TweetID: ")
+		fmt.Scanln(&tweet_id)
+		handlers.HandleReply(tokens, tweet_id, threadsint)
+		goto restart
+
+	case "7":
+		var threadsstr string
+		var screen_name string
+		fmt.Print("Threads: ")
+		fmt.Scanln(&threadsstr)
+		threadsstr = strings.TrimSpace(threadsstr)
+		threadsint, _ := strconv.Atoi(threadsstr)
+		fmt.Print("Username: ")
+		fmt.Scanln(&screen_name)
+		handlers.HandleFollow(tokens, threadsint, screen_name)
+		goto restart
+
+	case "8":
 		var prompt string
 		var countstr string
 		var threadsstr string

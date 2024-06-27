@@ -19,6 +19,7 @@ func Dolike(auth_token string, ct0 string, proxy string, tweet_id string) (strin
 		tls_client.WithClientProfile(profiles.Chrome_124),
 		tls_client.WithNotFollowRedirects(),
 		tls_client.WithCookieJar(jar),
+		tls_client.WithProxyUrl(proxy),
 	}
 	client, err := tls_client.NewHttpClient(tls_client.NewNoopLogger(), options...)
 	if err != nil {

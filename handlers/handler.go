@@ -73,7 +73,7 @@ func CheckerHandler(tokens []string, threads int) {
 			if status == "SUSPENDED" {
 				helpers.AppendToFile("output/checker/suspended.txt", fmt.Sprintf("%s\n", t))
 			}
-			logging.Log(logging.Info, color.BlackString("module=")+color.WhiteString("checker ")+color.BlackString("token=")+color.WhiteString(auth_token)+color.BlackString(" status=")+color.WhiteString(status))
+			logging.Log(logging.Info, color.GreenString("module=")+color.WhiteString("checker ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString(status))
 			c.Done()
 		}()
 
@@ -99,25 +99,25 @@ func HandleLike(tokens []string, tweet_id string, threads int) {
 			if err != nil {
 				c.Done()
 				helpers.AppendToFile("output/like/failed.txt", fmt.Sprintf("%s\n", t))
-				logging.Log(logging.Error, color.BlackString("module=")+color.WhiteString("like ")+color.BlackString("token=")+color.WhiteString(auth_token)+color.BlackString(" status=")+color.WhiteString("ERROR"))
+				logging.Log(logging.Error, color.GreenString("module=")+color.WhiteString("like ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("ERROR"))
 				return
 			}
 			if status == "" {
 				c.Done()
 				helpers.AppendToFile("output/like/failed.txt", fmt.Sprintf("%s\n", t))
-				logging.Log(logging.Warning, color.BlackString("module=")+color.WhiteString("like ")+color.BlackString("token=")+color.WhiteString(auth_token)+color.BlackString(" status=")+color.WhiteString("ERROR"))
+				logging.Log(logging.Warning, color.GreenString("module=")+color.WhiteString("like ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("ERROR"))
 
 				return
 			}
 			if status == "OK" {
 				c.Done()
-				logging.Log(logging.Info, color.BlackString("module=")+color.WhiteString("like ")+color.BlackString("token=")+color.WhiteString(auth_token)+color.BlackString(" status=")+color.WhiteString("SUCCESS"))
+				logging.Log(logging.Info, color.GreenString("module=")+color.WhiteString("like ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("SUCCESS"))
 
 			}
 			if status == "NOTOK" {
 				c.Done()
 				helpers.AppendToFile("output/like/failed.txt", fmt.Sprintf("%s\n", t))
-				logging.Log(logging.Warning, color.BlackString("module=")+color.WhiteString("like ")+color.BlackString("token=")+color.WhiteString(auth_token)+color.BlackString(" status=")+color.WhiteString("ERROR"))
+				logging.Log(logging.Warning, color.GreenString("module=")+color.WhiteString("like ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("ERROR"))
 
 				return
 			}
@@ -143,7 +143,7 @@ func HandleRT(tokens []string, tweet_id string, threads int) {
 			if err != nil {
 				c.Done()
 				helpers.AppendToFile("output/retweet/failed.txt", fmt.Sprintf("%s\n", t))
-				logging.Log(logging.Error, color.BlackString("module=")+color.WhiteString("retweet ")+color.BlackString("token=")+color.WhiteString(auth_token)+color.BlackString(" status=")+color.WhiteString("ERROR"))
+				logging.Log(logging.Error, color.GreenString("module=")+color.WhiteString("retweet ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("ERROR"))
 				c.Done()
 				return
 			}
@@ -151,21 +151,21 @@ func HandleRT(tokens []string, tweet_id string, threads int) {
 				c.Done()
 
 				helpers.AppendToFile("output/retweet/failed.txt", fmt.Sprintf("%s\n", t))
-				logging.Log(logging.Warning, color.BlackString("module=")+color.WhiteString("retweet ")+color.BlackString("token=")+color.WhiteString(auth_token)+color.BlackString(" status=")+color.WhiteString("ERROR"))
+				logging.Log(logging.Warning, color.GreenString("module=")+color.WhiteString("retweet ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("ERROR"))
 
 				return
 			}
 			if status == "OK" {
 				c.Done()
 
-				logging.Log(logging.Info, color.BlackString("module=")+color.WhiteString("retweet ")+color.BlackString("token=")+color.WhiteString(auth_token)+color.BlackString(" status=")+color.WhiteString("SUCCESS"))
+				logging.Log(logging.Info, color.GreenString("module=")+color.WhiteString("retweet ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("SUCCESS"))
 
 				return
 			}
 			if status == "NOTOK" {
 				c.Done()
 				helpers.AppendToFile("output/retweet/failed.txt", fmt.Sprintf("%s\n", t))
-				logging.Log(logging.Warning, color.BlackString("module=")+color.WhiteString("retweet ")+color.BlackString("token=")+color.WhiteString(auth_token)+color.BlackString(" status=")+color.WhiteString("ERROR"))
+				logging.Log(logging.Warning, color.GreenString("module=")+color.WhiteString("retweet ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("ERROR"))
 
 				return
 			}
@@ -183,12 +183,12 @@ func AiHandle(prompt string, count int, threads int) {
 		go func() {
 			comment, err := mass.GenerateAIComments(prompt)
 			if err != nil {
-				logging.Log(logging.Warning, color.BlackString("module=")+color.WhiteString("AiComments ")+color.BlackString(" status=")+color.WhiteString("ERROR"))
+				logging.Log(logging.Warning, color.GreenString("module=")+color.WhiteString("AiComments ")+color.GreenString(" status=")+color.WhiteString("ERROR"))
 				c.Done()
 				return
 			}
 			if comment == "" {
-				logging.Log(logging.Warning, color.BlackString("module=")+color.WhiteString("AiComments ")+color.BlackString(" status=")+color.WhiteString("EMPTY"))
+				logging.Log(logging.Warning, color.GreenString("module=")+color.WhiteString("AiComments ")+color.GreenString(" status=")+color.WhiteString("EMPTY"))
 				c.Done()
 				return
 			}
@@ -196,7 +196,7 @@ func AiHandle(prompt string, count int, threads int) {
 				c.Done()
 				return
 			}
-			logging.Log(logging.Warning, color.BlackString("module=")+color.WhiteString("AiComments ")+color.BlackString(" status=")+color.WhiteString(fmt.Sprintf("%s...\n", comment[:100])))
+			logging.Log(logging.Warning, color.GreenString("module=")+color.WhiteString("AiComments ")+color.GreenString(" status=")+color.WhiteString(fmt.Sprintf("%s...\n", comment[:100])))
 			helpers.AppendToFile("output/comments/generated.txt", fmt.Sprintf("%s\n", comment))
 			c.Done()
 			return
@@ -222,32 +222,130 @@ func HandleTweets(tokens []string, tweets []string, threads int) {
 			if err != nil {
 				c.Done()
 				helpers.AppendToFile("output/tweet/failed.txt", fmt.Sprintf("%s\n", t))
-				logging.Log(logging.Error, color.BlackString("module=")+color.WhiteString("tweet ")+color.BlackString("token=")+color.WhiteString(auth_token)+color.BlackString(" status=")+color.WhiteString("ERROR"))
+				logging.Log(logging.Error, color.GreenString("module=")+color.WhiteString("tweet ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("ERROR"))
 				return
 			}
 			if status == "" {
 				c.Done()
 
 				helpers.AppendToFile("output/tweet/failed.txt", fmt.Sprintf("%s\n", t))
-				logging.Log(logging.Warning, color.BlackString("module=")+color.WhiteString("tweet ")+color.BlackString("token=")+color.WhiteString(auth_token)+color.BlackString(" status=")+color.WhiteString("ERROR"))
+				logging.Log(logging.Warning, color.GreenString("module=")+color.WhiteString("tweet ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("ERROR"))
 
 				return
 			}
-			if status == "ok" {
+			if status == "OK" {
 				c.Done()
 
-				logging.Log(logging.Info, color.BlackString("module=")+color.WhiteString("tweet ")+color.BlackString("token=")+color.WhiteString(auth_token)+color.BlackString(" status=")+color.WhiteString("SUCCESS"))
+				logging.Log(logging.Info, color.GreenString("module=")+color.WhiteString("tweet ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("SUCCESS"))
 
 				return
 			}
-			if status == "notok" {
+			if status == "NOTOK" {
 				c.Done()
 				helpers.AppendToFile("output/tweet/failed.txt", fmt.Sprintf("%s\n", t))
-				logging.Log(logging.Warning, color.BlackString("module=")+color.WhiteString("tweet ")+color.BlackString("token=")+color.WhiteString(auth_token)+color.BlackString(" status=")+color.WhiteString("ERROR"))
+				logging.Log(logging.Warning, color.GreenString("module=")+color.WhiteString("tweet ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("ERROR"))
 
 				return
 			}
 		}()
+	}
+	c.WaitAllDone()
+	return
+}
+
+func HandleReply(tokens []string, tweet_id string, threads int) {
+	c := goccm.New(threads)
+	for _, t := range tokens {
+		c.Wait()
+		go func() {
+			if strings.Count(t, ":") != 5 {
+				c.Done()
+				return
+			}
+			auth_token := strings.Split(t, ":")[0]
+			ct0 := strings.Split(t, ":")[1]
+			proxy := strings.Split(t, ":")[2] + ":" + strings.Split(t, ":")[3] + ":" + strings.Split(t, ":")[4] + ":" + strings.Split(t, ":")[5]
+			status, err := mass.DoReplyNew(auth_token, ct0, proxy, tweet_id)
+			if err != nil {
+				c.Done()
+				helpers.AppendToFile("output/retweet/failed.txt", fmt.Sprintf("%s\n", t))
+				logging.Log(logging.Error, color.GreenString("module=")+color.WhiteString("reply")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("ERROR"))
+				c.Done()
+				return
+			}
+			if status == "" {
+				c.Done()
+
+				helpers.AppendToFile("output/retweet/failed.txt", fmt.Sprintf("%s\n", t))
+				logging.Log(logging.Warning, color.GreenString("module=")+color.WhiteString("reply")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("ERROR"))
+
+				return
+			}
+			if status == "OK" {
+				c.Done()
+
+				logging.Log(logging.Info, color.GreenString("module=")+color.WhiteString("reply")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("SUCCESS"))
+
+				return
+			}
+			if status == "NOTOK" {
+				c.Done()
+				helpers.AppendToFile("output/retweet/failed.txt", fmt.Sprintf("%s\n", t))
+				logging.Log(logging.Warning, color.GreenString("module=")+color.WhiteString("reply")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("ERROR"))
+
+				return
+			}
+		}()
+
+	}
+	c.WaitAllDone()
+	return
+}
+
+func HandleFollow(tokens []string, threads int, screen_name string) {
+	c := goccm.New(threads)
+	for _, t := range tokens {
+		c.Wait()
+		go func() {
+			if strings.Count(t, ":") != 5 {
+				c.Done()
+				return
+			}
+			auth_token := strings.Split(t, ":")[0]
+			ct0 := strings.Split(t, ":")[1]
+			proxy := strings.Split(t, ":")[2] + ":" + strings.Split(t, ":")[3] + ":" + strings.Split(t, ":")[4] + ":" + strings.Split(t, ":")[5]
+			status, err := mass.DoFollow(auth_token, ct0, proxy, screen_name)
+			if err != nil {
+				c.Done()
+				helpers.AppendToFile("output/retweet/failed.txt", fmt.Sprintf("%s\n", t))
+				logging.Log(logging.Error, color.GreenString("module=")+color.WhiteString("follow ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("ERROR"))
+				c.Done()
+				return
+			}
+			if status == "" {
+				c.Done()
+
+				helpers.AppendToFile("output/retweet/failed.txt", fmt.Sprintf("%s\n", t))
+				logging.Log(logging.Warning, color.GreenString("module=")+color.WhiteString("follow ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("ERROR"))
+
+				return
+			}
+			if status == "OK" {
+				c.Done()
+
+				logging.Log(logging.Info, color.GreenString("module=")+color.WhiteString("follow ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("SUCCESS"))
+
+				return
+			}
+			if status == "NOTOK" {
+				c.Done()
+				helpers.AppendToFile("output/retweet/failed.txt", fmt.Sprintf("%s\n", t))
+				logging.Log(logging.Warning, color.GreenString("module=")+color.WhiteString("follow ")+color.GreenString("token=")+color.WhiteString(auth_token)+color.GreenString(" status=")+color.WhiteString("ERROR"))
+
+				return
+			}
+		}()
+
 	}
 	c.WaitAllDone()
 	return

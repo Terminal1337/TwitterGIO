@@ -112,9 +112,9 @@ func DoTweet(auth_token string, ct0 string, proxy string, tweet_msg []string) (s
 
 	if resp.StatusCode == 200 {
 
-		return "ok", nil
+		return "OK", nil
 	} else {
-		return "notok", nil
+		return "NOTOK", nil
 	}
 
 }

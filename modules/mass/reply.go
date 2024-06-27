@@ -3,6 +3,7 @@ package mass
 import (
 	"fmt"
 	"log"
+	"os"
 	"strings"
 
 	"github.com/Terminal1337/GoCycle"
@@ -16,13 +17,23 @@ var (
 	messageCycle *GoCycle.Cycle
 )
 
-func DoReplyNew(auth_token string, ct0 string, proxy string, tweet_id string, message string) (string, error) {
+func init() {
+	var err error
+	messageCycle, err = GoCycle.NewFromFile("input/tweets/tweets.txt")
+	if err != nil {
+		log.Println(err.Error())
+		os.Exit(1)
+	}
+
+}
+func DoReplyNew(auth_token string, ct0 string, proxy string, tweet_id string) (string, error) {
 	jar := tls_client.NewCookieJar()
 	options := []tls_client.HttpClientOption{
 		tls_client.WithTimeoutSeconds(30),
 		tls_client.WithClientProfile(profiles.Chrome_124),
 		tls_client.WithNotFollowRedirects(),
 		tls_client.WithCookieJar(jar),
+		tls_client.WithProxyUrl(proxy),
 	}
 	client, err := tls_client.NewHttpClient(tls_client.NewNoopLogger(), options...)
 	if err != nil {
@@ -69,7 +80,7 @@ func DoReplyNew(auth_token string, ct0 string, proxy string, tweet_id string, me
     "responsive_web_enhance_cards_enabled": false
   },
   "queryId": "oB-5XsHNAbjvARJEc8CZFw"
-}`, message, tweet_id)
+}`, messageCycle.Next(), tweet_id)
 	req, err := http.NewRequest(http.MethodPost, "https://x.com/i/api/graphql/oB-5XsHNAbjvARJEc8CZFw/CreateTweet", strings.NewReader(body))
 	if err != nil {
 		log.Println(err)
